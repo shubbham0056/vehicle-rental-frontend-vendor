@@ -9,7 +9,7 @@ export function AuthProvider({ children }) {
   })
 
   const login = async (email, password) => {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch('https://vehicle-rental-backend-5e5f.onrender.com/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
