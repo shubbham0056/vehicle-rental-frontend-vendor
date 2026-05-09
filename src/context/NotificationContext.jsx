@@ -22,12 +22,16 @@ export function NotificationProvider({ children }) {
   useEffect(() => {
     if (!user?.token) return
 
-    const socket = io('https://rentwheels-api.onrender.com', {
-      auth: { token: user.token },
+    const socket = io(import.meta.env.VITE_API_URL, {
+      auth: {
+        token: user.token,
+      },
+      withCredentials: true,
+      transports: ['websocket', 'polling'],
     })
 
     // Join vendor room to receive payment notifications
-    socket.emit('join', user.token)
+    socket.emit('join', user._id)
 
     socket.on('paymentReceived', (data) => {
       addNotification({
