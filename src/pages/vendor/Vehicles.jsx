@@ -42,7 +42,7 @@ export default function Vehicles() {
   const fetchVehicles = async () => {
     setLoading(true)
     try {
-      const res = await fetch('/api/vehicles')
+      const res = await authFetch('/api/vehicles')
       const data = await res.json()
       setVehicles(res.ok ? data : [])
     } catch {
