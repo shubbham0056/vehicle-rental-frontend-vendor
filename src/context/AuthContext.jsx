@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
 
     // Try to refresh
     try {
-      const res = await fetch('/api/auth/refresh', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/refresh`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken: userData.refreshToken }),
@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
 
     const makeRequest = (t) => {
       const isFormData = options.body instanceof FormData
-      return fetch(url, {
+      return fetch(`${import.meta.env.VITE_API_URL}${url}`, {
         ...options,
         headers: {
           ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
     const stored = sessionStorage.getItem('vendor_user')
     if (stored) {
       const { refreshToken } = JSON.parse(stored)
-      fetch('/api/auth/logout', {
+      fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken }),
